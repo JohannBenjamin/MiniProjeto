@@ -1,8 +1,8 @@
 namespace MiniProjeto
 {
-    public partial class Form1 : Form
+    public partial class frmMiniProjeto : Form
     {
-        public Form1()
+        public frmMiniProjeto()
         {
             InitializeComponent();
         }
