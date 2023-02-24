@@ -1,6 +1,6 @@
 ﻿namespace MiniProjeto
 {
-    partial class frmMiniProjeto
+    partial class frmUsuário
     {
         /// <summary>
         ///  Required designer variable.

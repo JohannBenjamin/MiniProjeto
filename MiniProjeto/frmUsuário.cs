@@ -3,9 +3,9 @@ using System.Data.SqlClient;
 
 namespace MiniProjeto
 {
-    public partial class frmMiniProjeto : Form
+    public partial class frmUsuário : Form
     {
-        public frmMiniProjeto()
+        public frmUsuário()
         {
             InitializeComponent();
         }
