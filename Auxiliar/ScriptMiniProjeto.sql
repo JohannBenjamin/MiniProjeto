@@ -26,6 +26,7 @@ create table Categoria
 	status_categoria varchar(30) not null ,
 	obs_categoria varchar(255) null
 )
+select * from Categoria
 
 insert into Categoria
 	(nome_categoria, descricao_categoria, status_categoria, obs_categoria)

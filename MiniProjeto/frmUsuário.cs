@@ -13,19 +13,19 @@ namespace MiniProjeto
         //variáveis
         string mensagemErro = "";
         string stringConexao = "" +
-                            "Data Source=localhost;" +
-                            "Initial Catalog=N8_MiniProjeto;" +
-                            "User ID=sa;" +
-                            "Password=123456";
+                            "Data Source=localhost;" + //local do banco
+                            "Initial Catalog=N8_MiniProjeto;" + //nome do banco
+                            "User ID=sa;" + //usuario
+                            "Password=123456"; //senha
 
         private void TestarConexao()
         {
-            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlConnection conn = new SqlConnection(stringConexao); //Instância da conexão do banco de dados local
 
             try
             {
-                conn.Open();
-                conn.Close();
+                conn.Open(); //abre a conexão
+                conn.Close(); //fecha a conexão. Importante fechar no fim de cada processo!
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace MiniProjeto
 
             if(cboStatus.SelectedIndex == -1)
             {
-                mensagemErro = "Erro!! Informe um Status válido.";
+                mensagemErro = "Erro!! Informe um status válido.";
                 cboStatus.Focus();
                 return false;
             }
@@ -95,7 +95,7 @@ namespace MiniProjeto
 
         private void frmMiniProjeto_Load(object sender, EventArgs e)
         {
-            TestarConexao();
+            TestarConexao(); //testa a conexao ao abrir o formulário
         }
         
         private void btnCadastrar_Click(object sender, EventArgs e)
@@ -119,24 +119,28 @@ namespace MiniProjeto
                         "'" + txtObs.Text + "'" +
                     ")";
 
-                SqlConnection conn = new SqlConnection(stringConexao);
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.CommandType = CommandType.Text;
-                conn.Open();
+                SqlConnection conn = new SqlConnection(stringConexao); //instancia da conexão
+                SqlCommand cmd = new SqlCommand(sql, conn); //instancia de comando sql ("qual comando", "executa em qual banco")
+                cmd.CommandType = CommandType.Text; //muda o tipo de texto do comando
+                conn.Open(); //abre a conexão
 
                 try
                 {
-                    int i = cmd.ExecuteNonQuery();
+                    int i = cmd.ExecuteNonQuery(); //retorna o número de linhas afetadas
                     if (i > 0)
                     {
                         MessageBox.Show("Cadastro realizado com sucesso!");
                     }
-                    btnLimpar.PerformClick();
+                    btnLimpar.PerformClick(); //limpo as caixas de texto dps do insert
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro: " + ex.Message);
                     Application.Exit();
+                }
+                finally
+                {
+                    conn.Close(); //fechamento da conexão
                 }
             }
             else
