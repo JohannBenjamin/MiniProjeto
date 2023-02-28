@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.txtCodigoCategoria = new System.Windows.Forms.TextBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -70,6 +71,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Controls.Add(this.txtCodigoCategoria);
             this.groupBox1.Controls.Add(this.txtCodigo);
             this.groupBox1.Controls.Add(this.label2);
@@ -80,12 +82,22 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(154, 57);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(33, 33);
+            this.btnBuscar.TabIndex = 1;
+            this.btnBuscar.Text = "...";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // txtCodigoCategoria
             // 
             this.txtCodigoCategoria.Location = new System.Drawing.Point(278, 57);
             this.txtCodigoCategoria.Name = "txtCodigoCategoria";
             this.txtCodigoCategoria.Size = new System.Drawing.Size(186, 33);
-            this.txtCodigoCategoria.TabIndex = 1;
+            this.txtCodigoCategoria.TabIndex = 2;
             // 
             // txtCodigo
             // 
@@ -375,7 +387,6 @@
             // 
             // frmProduto
             // 
-            this.AcceptButton = this.btnCadastrar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumAquamarine;
@@ -440,5 +451,6 @@
         private Button btnLimpar;
         private Button btnExcluir;
         private Button btnSair;
+        private Button btnBuscar;
     }
 }

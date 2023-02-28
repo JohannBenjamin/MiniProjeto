@@ -69,10 +69,10 @@ namespace MiniProjeto
 
             if (string.IsNullOrEmpty(txtObs.Text))
             {
-                mensagemErro = "Erro!! Informe uma observação.";
-                txtObs.Text = "";
-                txtObs.Focus();
-                return false;
+                //mensagemErro = "Erro!! Informe uma observação.";
+                txtObs.Text = "Sem Obs";
+                //txtObs.Focus();
+                //return false;
             }
             return true;
         }
@@ -142,6 +142,44 @@ namespace MiniProjeto
         private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string sql = "select * from Categoria where id_categoria = " + txtCodigo.Text;
+
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader leitura;
+            conn.Open();
+
+            try
+            {
+                leitura = cmd.ExecuteReader();
+                if(leitura.Read())
+                {
+                    txtCodigo.Text = leitura[0].ToString();
+                    txtNome.Text = leitura[1].ToString();
+                    txtDescricao.Text = leitura[2].ToString();
+                    cboStatus.Text = leitura[3].ToString();
+                    txtObs.Text = leitura[4].ToString();
+                    MessageBox.Show("Busca realizada!");
+                }
+                else
+                {
+                    MessageBox.Show("Erro! Código de Categoria inexistente.");
+                    btnLimpar.PerformClick();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }

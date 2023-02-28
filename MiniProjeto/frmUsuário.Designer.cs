@@ -80,6 +80,7 @@
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "...";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtCodigo
             // 
@@ -297,7 +298,6 @@
             // 
             // frmUsuário
             // 
-            this.AcceptButton = this.btnCadastrar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;

@@ -85,10 +85,10 @@ namespace MiniProjeto
 
             if (string.IsNullOrEmpty(txtObs.Text))
             {
-                mensagemErro = "Erro!! Informe uma observação válida.";
-                txtObs.Text = "";
-                txtObs.Focus();
-                return false;
+                //mensagemErro = "Erro!! Informe uma observação.";
+                txtObs.Text = "Sem Obs";
+                //txtObs.Focus();
+                //return false;
             }
             return true;
         }
@@ -163,6 +163,47 @@ namespace MiniProjeto
             txtCpf.Text = "";
             cboStatus.SelectedIndex = -1;
             txtObs.Text = "";
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string sql = "select * from Usuario where id_usuario = " + txtCodigo.Text;
+
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.CommandType = CommandType.Text;
+            SqlDataReader leitura;
+            conn.Open();
+
+            try
+            {
+                leitura = cmd.ExecuteReader();
+                if(leitura.Read())
+                {
+                    txtCodigo.Text = leitura[0].ToString();
+                    txtNome.Text = leitura[1].ToString();
+                    txtLogin.Text = leitura[2].ToString();
+                    txtSenha.Text = leitura[3].ToString();
+                    txtCpf.Text = leitura[4].ToString();
+                    cboStatus.Text = leitura[5].ToString();
+                    txtObs.Text = leitura[6].ToString();
+                    MessageBox.Show("Busca realizada!");
+                }
+                else
+                {
+                    MessageBox.Show("Erro! Código de usuário inexistente.");
+                    btnLimpar.PerformClick();   
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }
