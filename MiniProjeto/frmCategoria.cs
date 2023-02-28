@@ -66,6 +66,14 @@ namespace MiniProjeto
                 txtDescricao.Focus();
                 return false;
             }
+
+            if (string.IsNullOrEmpty(txtObs.Text))
+            {
+                mensagemErro = "Erro!! Informe uma observação.";
+                txtObs.Text = "";
+                txtObs.Focus();
+                return false;
+            }
             return true;
         }
 

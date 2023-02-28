@@ -83,13 +83,13 @@ namespace MiniProjeto
                 return false;
             }
 
-            /*if (string.IsNullOrEmpty(txtObs.Text))
+            if (string.IsNullOrEmpty(txtObs.Text))
             {
                 mensagemErro = "Erro!! Informe uma observação válida.";
                 txtObs.Text = "";
                 txtObs.Focus();
                 return false;
-            }*/
+            }
             return true;
         }
 

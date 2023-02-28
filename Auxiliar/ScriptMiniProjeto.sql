@@ -50,6 +50,8 @@ create table Produto
 	constraint FK_Id_Categoria_Produto foreign key(id_categoria_produto) references Categoria(id_categoria)
 )
 
+select * from Produto
+
 insert into Produto
 	(id_categoria_produto, nome_produto, qtde_produto, peso_produto, unidade_produto, valorCusto_produto, valorVenda_produto, status_produto, obs_produto)
 values
