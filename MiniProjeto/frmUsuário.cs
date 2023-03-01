@@ -34,6 +34,18 @@ namespace MiniProjeto
             }
         }
 
+        private bool VerificadorCodigo()
+        {
+            if (!int.TryParse(txtCodigo.Text, out int codigo))
+            {
+                mensagemErro = "Erro!! Informe um código válido.";
+                txtCodigo.Text = "";
+                txtCodigo.Focus();
+                return false;
+            }
+            return true;
+        }
+
         private bool VerificadorCadastrar()
         {
             /*if(!int.TryParse(txtCodigo.Text, out int codigo))
@@ -167,42 +179,85 @@ namespace MiniProjeto
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            string sql = "select * from Usuario where id_usuario = " + txtCodigo.Text;
-
-            SqlConnection conn = new SqlConnection(stringConexao);
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.CommandType = CommandType.Text;
-            SqlDataReader leitura;
-            conn.Open();
-
-            try
+            if (VerificadorCodigo())
             {
-                leitura = cmd.ExecuteReader();
-                if(leitura.Read())
+                string sql = "select * from Usuario where id_usuario = " + txtCodigo.Text;
+
+                SqlConnection conn = new SqlConnection(stringConexao);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                SqlDataReader leitura;
+                conn.Open();
+
+                try
                 {
-                    txtCodigo.Text = leitura[0].ToString();
-                    txtNome.Text = leitura[1].ToString();
-                    txtLogin.Text = leitura[2].ToString();
-                    txtSenha.Text = leitura[3].ToString();
-                    txtCpf.Text = leitura[4].ToString();
-                    cboStatus.Text = leitura[5].ToString();
-                    txtObs.Text = leitura[6].ToString();
-                    MessageBox.Show("Busca realizada!");
+                    leitura = cmd.ExecuteReader();
+                    if (leitura.Read())
+                    {
+                        txtCodigo.Text = leitura[0].ToString();
+                        txtNome.Text = leitura[1].ToString();
+                        txtLogin.Text = leitura[2].ToString();
+                        txtSenha.Text = leitura[3].ToString();
+                        txtCpf.Text = leitura[4].ToString();
+                        cboStatus.Text = leitura[5].ToString();
+                        txtObs.Text = leitura[6].ToString();
+                        MessageBox.Show("Busca realizada!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro! Código de usuário inexistente.");
+                        btnLimpar.PerformClick();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Erro! Código de usuário inexistente.");
-                    btnLimpar.PerformClick();   
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Erro: " + ex.Message);
-                Application.Exit();
+                MessageBox.Show(mensagemErro);
             }
-            finally
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (VerificadorCodigo())
             {
-                conn.Close();
+                string sql = "delete from Usuario where id_usuario = " + txtCodigo.Text;
+
+                SqlConnection conn = new SqlConnection(stringConexao);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                conn.Open();
+
+                try
+                {
+                    int i = cmd.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Exclusão realizada com sucesso!");
+                        btnLimpar.PerformClick();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show(mensagemErro);
             }
         }
     }
