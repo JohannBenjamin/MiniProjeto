@@ -236,5 +236,87 @@ namespace MiniProjeto
                 MessageBox.Show(mensagemErro);
             }
         }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if(VerificadorCodigo())
+            {
+                string sql = "select * from Categoria where id_categoria = " + txtCodigo.Text;
+
+                SqlConnection conn = new SqlConnection(stringConexao);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader leitura;
+                conn.Open();
+
+                try
+                {
+                    leitura = cmd.ExecuteReader();
+                    if (leitura.Read())
+                    {
+                        if (string.IsNullOrEmpty(txtNome.Text))
+                        {
+                            txtNome.Text = leitura[1].ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtDescricao.Text))
+                        {
+                            txtDescricao.Text = leitura[2].ToString();
+                        }
+                        
+                        if (cboStatus.SelectedIndex == -1)
+                        {
+                            cboStatus.Text = leitura[3].ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtObs.Text))
+                        {
+                            txtObs.Text = leitura[4].ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+                sql = "update Categoria set " +
+                    "nome_categoria = '" + txtNome.Text + "'," +
+                    "descricao_categoria = '" + txtDescricao.Text + "'," +
+                    "status_categoria = '" + cboStatus.Text + "'," +
+                    "obs_categoria = '" + txtObs.Text + "' " +
+                    "where id_categoria = " + txtCodigo.Text;
+
+                cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                conn.Open();
+
+                try
+                {
+                    int i = cmd.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Alteração realizada com sucesso!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show(mensagemErro);
+            }
+        }
     }
 }

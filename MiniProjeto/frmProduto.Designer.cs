@@ -160,11 +160,6 @@
             this.numQtde.Name = "numQtde";
             this.numQtde.Size = new System.Drawing.Size(157, 33);
             this.numQtde.TabIndex = 2;
-            this.numQtde.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // cboStatus
             // 
@@ -355,6 +350,7 @@
             this.btnAlterar.TabIndex = 1;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
             // btnLimpar
             // 

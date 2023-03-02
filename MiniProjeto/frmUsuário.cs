@@ -56,7 +56,7 @@ namespace MiniProjeto
                 return false;
             }*/
 
-            if(string.IsNullOrEmpty(txtNome.Text))
+            if (string.IsNullOrEmpty(txtNome.Text))
             {
                 mensagemErro = "Erro!! Informe um nome válido.";
                 txtNome.Text = "";
@@ -64,7 +64,7 @@ namespace MiniProjeto
                 return false;
             }
 
-            if(!(txtLogin.Text.Contains("@") && txtLogin.Text.Contains(".com")))
+            if (!(txtLogin.Text.Contains("@") && txtLogin.Text.Contains(".com")))
             {
                 mensagemErro = "Erro!! Informe um login válido.";
                 txtLogin.Text = "";
@@ -88,7 +88,7 @@ namespace MiniProjeto
                 return false;
             }
 
-            if(cboStatus.SelectedIndex == -1)
+            if (cboStatus.SelectedIndex == -1)
             {
                 mensagemErro = "Erro!! Informe um status válido.";
                 cboStatus.Focus();
@@ -109,7 +109,7 @@ namespace MiniProjeto
         {
             TestarConexao(); //testa a conexao ao abrir o formulário
         }
-        
+
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
             if (VerificadorCadastrar())
@@ -243,6 +243,100 @@ namespace MiniProjeto
                     {
                         MessageBox.Show("Exclusão realizada com sucesso!");
                         btnLimpar.PerformClick();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show(mensagemErro);
+            }
+        }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if (VerificadorCodigo())
+            {
+                string sql = "select * from Usuario where id_usuario = " + txtCodigo.Text;
+
+                SqlConnection conn = new SqlConnection(stringConexao);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                SqlDataReader leitura;
+                conn.Open();
+
+                try
+                {
+                    leitura = cmd.ExecuteReader();
+                    if (leitura.Read())
+                    {
+                        if (string.IsNullOrEmpty(txtNome.Text))
+                        {
+                            txtNome.Text = leitura[1].ToString();
+                        }
+                        if (!(txtLogin.Text.Contains("@") && txtLogin.Text.Contains(".com")))
+                        {
+                            txtLogin.Text = leitura[2].ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtSenha.Text))
+                        {
+                            txtSenha.Text = leitura[3].ToString();
+                        }
+
+                        if (!txtCpf.MaskFull)
+                        {
+                            txtCpf.Text = leitura[4].ToString();
+                        }
+
+                        if (cboStatus.SelectedIndex == -1)
+                        {
+                            cboStatus.Text = leitura[5].ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtObs.Text))
+                        {
+                            txtObs.Text = leitura[6].ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+                sql = "update Usuario set " +
+                    "nome_usuario = '" + txtNome.Text + "'," +
+                    "login_usuario = '" + txtLogin.Text + "'," +
+                    "senha_usuario = '" + txtSenha.Text + "'," +
+                    "cpf_usuario = '" + txtCpf.Text + "'," +
+                    "obs_usuario = '" + txtObs.Text + "'," +
+                    "status_usuario = '" + cboStatus.Text + "' " +
+                    "where id_usuario = " + txtCodigo.Text;
+
+                cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                conn.Open();
+
+                try
+                {
+                    int i = cmd.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Alteração realizada com sucesso!");
                     }
                 }
                 catch (Exception ex)

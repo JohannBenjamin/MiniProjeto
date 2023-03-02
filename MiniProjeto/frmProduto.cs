@@ -304,5 +304,123 @@ namespace MiniProjeto
                 MessageBox.Show(mensagemErro);
             }
         }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if (VerificadorCodigo())
+            {
+                string sql = "select * from Produto where id_produto = " + txtCodigo.Text;
+
+                SqlConnection conn = new SqlConnection(stringConexao);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader leitura;
+                conn.Open();
+
+                try
+                {
+                    leitura = cmd.ExecuteReader();
+                    if (leitura.Read())
+                    {
+                        if (!int.TryParse(txtCodigoCategoria.Text, out int codigoCategoria))
+                        {
+                            txtCodigoCategoria.Text = leitura[1].ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtNome.Text))
+                        {
+                            txtNome.Text = leitura[2].ToString();
+                        }
+
+                        if (numQtde.Value == 0)
+                        {
+                            numQtde.Value = decimal.Parse(leitura[3].ToString());
+                        }
+
+                        if (!float.TryParse(txtPeso.Text, out float peso))
+                        {
+                            txtPeso.Text = leitura[4].ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtUnidade.Text))
+                        {
+                            txtUnidade.Text = leitura[5].ToString();
+                        }
+
+                        if (!txtCadastro.MaskFull)
+                        {
+                            txtCadastro.Text = leitura[6].ToString();
+                        }
+
+                        if (!float.TryParse(txtCusto.Text, out float custo))
+                        {
+                            txtCusto.Text = leitura[7].ToString();
+                        }
+
+                        if (!float.TryParse(txtVenda.Text, out float venda))
+                        {
+                            txtVenda.Text = leitura[8].ToString();
+                        }
+
+                        if (cboStatus.SelectedIndex == -1)
+                        {
+                            cboStatus.Text = leitura[9].ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtObs.Text))
+                        {
+                            txtObs.Text = leitura[10].ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+                sql = "update Produto set " +
+                    "id_categoria_produto = " + txtCodigoCategoria.Text + "," +
+                    "nome_produto = '" + txtNome.Text + "'," +
+                    "qtde_produto = " + numQtde.Value + ", " +
+                    "peso_produto = " + txtPeso.Text.Replace(",", ".") + "," +
+                    "unidade_produto = '" + txtUnidade.Text + "'," +
+                    "cadastro_produto = '" + txtCadastro.Text + "'," +
+                    "valorCusto_produto = " + txtCusto.Text.Replace(",", ".") + "," +
+                    "valorVenda_produto = " + txtVenda.Text.Replace(",", ".") + "," +
+                    "status_produto = '" + cboStatus.Text + "'," +
+                    "obs_produto = '" + txtObs.Text + "' " +
+                    "where id_produto = " + txtCodigo.Text;
+
+                cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                conn.Open();
+
+                try
+                {
+                    int i = cmd.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        MessageBox.Show("Alteração realizada com sucesso!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show(mensagemErro);
+            }
+        }
     }
 }
