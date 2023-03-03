@@ -30,7 +30,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.txtCodigoCategoria = new System.Windows.Forms.TextBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,11 +55,15 @@
             this.txtObs = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnCadastrarMelhorado = new System.Windows.Forms.Button();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cboNomeCategoria = new System.Windows.Forms.ComboBox();
+            this.cboCodigoCategoria = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQtde)).BeginInit();
@@ -71,8 +74,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cboCodigoCategoria);
+            this.groupBox1.Controls.Add(this.cboNomeCategoria);
+            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.btnBuscar);
-            this.groupBox1.Controls.Add(this.txtCodigoCategoria);
             this.groupBox1.Controls.Add(this.txtCodigo);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
@@ -92,13 +97,6 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // txtCodigoCategoria
-            // 
-            this.txtCodigoCategoria.Location = new System.Drawing.Point(278, 57);
-            this.txtCodigoCategoria.Name = "txtCodigoCategoria";
-            this.txtCodigoCategoria.Size = new System.Drawing.Size(186, 33);
-            this.txtCodigoCategoria.TabIndex = 2;
-            // 
             // txtCodigo
             // 
             this.txtCodigo.Location = new System.Drawing.Point(6, 57);
@@ -109,7 +107,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(278, 29);
+            this.label2.Location = new System.Drawing.Point(438, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(186, 25);
             this.label2.TabIndex = 0;
@@ -321,6 +319,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btnCadastrarMelhorado);
             this.groupBox5.Controls.Add(this.btnCadastrar);
             this.groupBox5.Controls.Add(this.btnAlterar);
             this.groupBox5.Controls.Add(this.btnLimpar);
@@ -332,12 +331,22 @@
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             // 
+            // btnCadastrarMelhorado
+            // 
+            this.btnCadastrarMelhorado.Location = new System.Drawing.Point(117, 32);
+            this.btnCadastrarMelhorado.Name = "btnCadastrarMelhorado";
+            this.btnCadastrarMelhorado.Size = new System.Drawing.Size(219, 32);
+            this.btnCadastrarMelhorado.TabIndex = 0;
+            this.btnCadastrarMelhorado.Text = "Cadastrar (Melhorado)";
+            this.btnCadastrarMelhorado.UseVisualStyleBackColor = true;
+            this.btnCadastrarMelhorado.Click += new System.EventHandler(this.btnCadastrarMelhorado_Click);
+            // 
             // btnCadastrar
             // 
             this.btnCadastrar.Location = new System.Drawing.Point(342, 32);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(102, 32);
-            this.btnCadastrar.TabIndex = 0;
+            this.btnCadastrar.TabIndex = 1;
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = true;
             this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
@@ -347,7 +356,7 @@
             this.btnAlterar.Location = new System.Drawing.Point(450, 32);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(91, 32);
-            this.btnAlterar.TabIndex = 1;
+            this.btnAlterar.TabIndex = 2;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
             this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
@@ -357,7 +366,7 @@
             this.btnLimpar.Location = new System.Drawing.Point(547, 32);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(91, 32);
-            this.btnLimpar.TabIndex = 2;
+            this.btnLimpar.TabIndex = 3;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = true;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
@@ -367,7 +376,7 @@
             this.btnExcluir.Location = new System.Drawing.Point(644, 32);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(91, 32);
-            this.btnExcluir.TabIndex = 3;
+            this.btnExcluir.TabIndex = 4;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
@@ -377,10 +386,38 @@
             this.btnSair.Location = new System.Drawing.Point(741, 32);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(91, 32);
-            this.btnSair.TabIndex = 4;
+            this.btnSair.TabIndex = 5;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(193, 29);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(176, 25);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Nome da Categoria";
+            // 
+            // cboNomeCategoria
+            // 
+            this.cboNomeCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboNomeCategoria.FormattingEnabled = true;
+            this.cboNomeCategoria.Location = new System.Drawing.Point(193, 57);
+            this.cboNomeCategoria.Name = "cboNomeCategoria";
+            this.cboNomeCategoria.Size = new System.Drawing.Size(239, 33);
+            this.cboNomeCategoria.TabIndex = 2;
+            // 
+            // cboCodigoCategoria
+            // 
+            this.cboCodigoCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCodigoCategoria.Enabled = false;
+            this.cboCodigoCategoria.FormattingEnabled = true;
+            this.cboCodigoCategoria.Location = new System.Drawing.Point(438, 57);
+            this.cboCodigoCategoria.Name = "cboCodigoCategoria";
+            this.cboCodigoCategoria.Size = new System.Drawing.Size(121, 33);
+            this.cboCodigoCategoria.TabIndex = 3;
             // 
             // frmProduto
             // 
@@ -417,7 +454,6 @@
         #endregion
 
         private GroupBox groupBox1;
-        private TextBox txtCodigoCategoria;
         private TextBox txtCodigo;
         private Label label2;
         private Label label1;
@@ -449,5 +485,9 @@
         private Button btnExcluir;
         private Button btnSair;
         private Button btnBuscar;
+        private Button btnCadastrarMelhorado;
+        private ComboBox cboNomeCategoria;
+        private Label label11;
+        private ComboBox cboCodigoCategoria;
     }
 }

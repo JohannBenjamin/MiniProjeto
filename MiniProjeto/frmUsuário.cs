@@ -201,7 +201,6 @@ namespace MiniProjeto
                         txtCpf.Text = leitura[4].ToString();
                         cboStatus.Text = leitura[5].ToString();
                         txtObs.Text = leitura[6].ToString();
-                        MessageBox.Show("Busca realizada!");
                     }
                     else
                     {
@@ -337,6 +336,61 @@ namespace MiniProjeto
                     if (i > 0)
                     {
                         MessageBox.Show("Alteração realizada com sucesso!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show(mensagemErro);
+            }
+        }
+
+        private void btnCadastrarMelhorado_Click(object sender, EventArgs e)
+        {
+            if (VerificadorCadastrar())
+            {
+                string sql = "insert into Usuario" +
+                        "(" +
+                            "nome_usuario," +
+                            "login_usuario," +
+                            "senha_usuario," +
+                            "cpf_usuario," +
+                            "status_usuario," +
+                            "obs_usuario" +
+                        ")values(" +
+                            "'" + txtNome.Text + "'," +
+                            "'" + txtLogin.Text + "'," +
+                            "'" + txtSenha.Text + "'," +
+                            "'" + txtCpf.Text + "'," +
+                            "'" + cboStatus.Text + "'," +
+                            "'" + txtObs.Text + "'" +
+                        ")select SCOPE_IDENTITY()";
+
+                SqlConnection conn = new SqlConnection(stringConexao);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                SqlDataReader leitura;
+                conn.Open();
+
+                try
+                {
+                    leitura = cmd.ExecuteReader();
+                    if (leitura.Read())
+                    {
+                        MessageBox.Show("Dados cadastros com sucesso!");
+                        btnLimpar.PerformClick();
+                        MessageBox.Show("Código do registro é " + leitura[0].ToString());
+                        txtCodigo.Text = leitura[0].ToString();
+                        btnBuscar.PerformClick();
                     }
                 }
                 catch (Exception ex)

@@ -42,9 +42,44 @@ namespace MiniProjeto
             }
         }
 
+        private void CarregarCategoria()
+        {
+            string sql = "select id_categoria, nome_categoria from Categoria";
+
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.CommandType = CommandType.Text;
+            SqlDataReader leitura;
+
+            DataTable tabela = new DataTable();
+            conn.Open();
+
+            try
+            {
+                leitura = cmd.ExecuteReader();
+                tabela.Load(leitura);
+
+                cboNomeCategoria.DisplayMember = "nome_categoria";
+                cboNomeCategoria.DataSource = tabela;
+
+                cboCodigoCategoria.DisplayMember = "id_categoria";
+                cboCodigoCategoria.DataSource = tabela;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         private void frmProduto_Load(object sender, EventArgs e)
         {
             TesteConexao();
+            CarregarCategoria();
         }
 
         private bool VerificadorCodigo()
@@ -61,11 +96,11 @@ namespace MiniProjeto
 
         private bool VerificadorCadastrar()
         {
-            if (!int.TryParse(txtCodigoCategoria.Text, out int codigoCategoria))
+            if (!int.TryParse(cboCodigoCategoria.Text, out int codigoCategoria))
             {
                 mensagemErro = "Erro!! Informe um código de categoria.";
-                txtCodigoCategoria.Text = "";
-                txtCodigoCategoria.Focus();
+                cboCodigoCategoria.SelectedIndex = -1;
+                cboCodigoCategoria.Focus();
                 return false;
             }
 
@@ -158,7 +193,7 @@ namespace MiniProjeto
                         "status_produto," +
                         "obs_produto" +
                     ")values(" +
-                        "" + txtCodigoCategoria.Text + "," +
+                        "" + cboCodigoCategoria.Text + "," +
                         "'" + txtNome.Text + "'," +
                         "" + numQtde.Text + "," +
                         "" + txtPeso.Text.Replace(",", ".") + "," +
@@ -202,7 +237,7 @@ namespace MiniProjeto
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             txtCodigo.Text = "";
-            txtCodigoCategoria.Text = "";
+            cboCodigoCategoria.SelectedIndex = -1;
             txtNome.Text = "";
             cboStatus.SelectedIndex = -1;
             numQtde.Value = 1;
@@ -235,7 +270,7 @@ namespace MiniProjeto
                     if (leitura.Read())
                     {
                         txtCodigo.Text = leitura[0].ToString();
-                        txtCodigoCategoria.Text = leitura[1].ToString();
+                        cboCodigoCategoria.Text = leitura[1].ToString();
                         txtNome.Text = leitura[2].ToString();
                         numQtde.Value = decimal.Parse(leitura[3].ToString());
                         txtPeso.Text = leitura[4].ToString();
@@ -245,7 +280,6 @@ namespace MiniProjeto
                         txtVenda.Text = leitura[8].ToString();
                         cboStatus.Text = leitura[9].ToString();
                         txtObs.Text = leitura[10].ToString();
-                        MessageBox.Show("Busca realizada!");
                     }
                     else
                     {
@@ -321,9 +355,9 @@ namespace MiniProjeto
                     leitura = cmd.ExecuteReader();
                     if (leitura.Read())
                     {
-                        if (!int.TryParse(txtCodigoCategoria.Text, out int codigoCategoria))
+                        if (!int.TryParse(cboCodigoCategoria.Text, out int codigoCategoria))
                         {
-                            txtCodigoCategoria.Text = leitura[1].ToString();
+                            cboCodigoCategoria.Text = leitura[1].ToString();
                         }
 
                         if (string.IsNullOrEmpty(txtNome.Text))
@@ -383,7 +417,7 @@ namespace MiniProjeto
                 }
 
                 sql = "update Produto set " +
-                    "id_categoria_produto = " + txtCodigoCategoria.Text + "," +
+                    "id_categoria_produto = " + cboCodigoCategoria.Text + "," +
                     "nome_produto = '" + txtNome.Text + "'," +
                     "qtde_produto = " + numQtde.Value + ", " +
                     "peso_produto = " + txtPeso.Text.Replace(",", ".") + "," +
@@ -405,6 +439,67 @@ namespace MiniProjeto
                     if (i > 0)
                     {
                         MessageBox.Show("Alteração realizada com sucesso!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    Application.Exit();
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show(mensagemErro);
+            }
+        }
+
+        private void btnCadastrarMelhorado_Click(object sender, EventArgs e)
+        {
+            if (VerificadorCadastrar())
+            {
+                string sql = "insert into Produto" +
+                    "(" +
+                        "id_categoria_produto," +
+                        "nome_produto," +
+                        "qtde_produto," +
+                        "peso_produto," +
+                        "unidade_produto," +
+                        "valorCusto_produto," +
+                        "valorVenda_produto," +
+                        "status_produto," +
+                        "obs_produto" +
+                    ")values(" +
+                        "" + cboCodigoCategoria.Text + "," +
+                        "'" + txtNome.Text + "'," +
+                        "" + numQtde.Text + "," +
+                        "" + txtPeso.Text.Replace(",", ".") + "," +
+                        "'" + txtUnidade.Text + "'," +
+                        "" + txtCusto.Text.Replace(",", ".") + "," +
+                        "" + txtVenda.Text.Replace(",", ".") + "," +
+                        "'" + cboStatus.Text + "'," +
+                        "'" + txtObs.Text + "'" +
+                    ")select SCOPE_IDENTITY";
+
+                SqlConnection conn = new SqlConnection(stringConexao);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                SqlDataReader leitura;
+                conn.Open();
+
+                try
+                {
+                    leitura = cmd.ExecuteReader();
+                    if (leitura.Read())
+                    {
+                        MessageBox.Show("Dados cadastrados com sucesso!");
+                        btnLimpar.PerformClick();
+                        MessageBox.Show("Código do registro é " + leitura[0].ToString());
+                        txtCodigo.Text = leitura[0].ToString();
+                        btnBuscar.PerformClick();
                     }
                 }
                 catch (Exception ex)

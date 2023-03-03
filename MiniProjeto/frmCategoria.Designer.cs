@@ -43,6 +43,7 @@
             this.txtObs = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnCadastrarMelhorado = new System.Windows.Forms.Button();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
@@ -194,6 +195,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnCadastrarMelhorado);
             this.groupBox4.Controls.Add(this.btnCadastrar);
             this.groupBox4.Controls.Add(this.btnAlterar);
             this.groupBox4.Controls.Add(this.btnLimpar);
@@ -205,12 +207,22 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             // 
+            // btnCadastrarMelhorado
+            // 
+            this.btnCadastrarMelhorado.Location = new System.Drawing.Point(78, 32);
+            this.btnCadastrarMelhorado.Name = "btnCadastrarMelhorado";
+            this.btnCadastrarMelhorado.Size = new System.Drawing.Size(212, 33);
+            this.btnCadastrarMelhorado.TabIndex = 0;
+            this.btnCadastrarMelhorado.Text = "Cadastrar (Melhorado)";
+            this.btnCadastrarMelhorado.UseVisualStyleBackColor = true;
+            this.btnCadastrarMelhorado.Click += new System.EventHandler(this.btnCadastrarMelhorado_Click);
+            // 
             // btnCadastrar
             // 
             this.btnCadastrar.Location = new System.Drawing.Point(296, 32);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(104, 33);
-            this.btnCadastrar.TabIndex = 0;
+            this.btnCadastrar.TabIndex = 1;
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = true;
             this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
@@ -220,7 +232,7 @@
             this.btnAlterar.Location = new System.Drawing.Point(406, 32);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(88, 33);
-            this.btnAlterar.TabIndex = 1;
+            this.btnAlterar.TabIndex = 2;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
             this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
@@ -230,7 +242,7 @@
             this.btnLimpar.Location = new System.Drawing.Point(500, 32);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(88, 33);
-            this.btnLimpar.TabIndex = 2;
+            this.btnLimpar.TabIndex = 3;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = true;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
@@ -240,7 +252,7 @@
             this.btnExcluir.Location = new System.Drawing.Point(594, 32);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(88, 33);
-            this.btnExcluir.TabIndex = 3;
+            this.btnExcluir.TabIndex = 4;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
@@ -250,7 +262,7 @@
             this.btnSair.Location = new System.Drawing.Point(688, 32);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(88, 33);
-            this.btnSair.TabIndex = 4;
+            this.btnSair.TabIndex = 5;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
@@ -305,5 +317,6 @@
         private Button btnExcluir;
         private Button btnSair;
         private ComboBox cboStatus;
+        private Button btnCadastrarMelhorado;
     }
 }
