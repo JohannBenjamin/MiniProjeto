@@ -12,11 +12,14 @@ namespace MiniProjeto
 
         //variáveis
         string mensagemErro = "";
-        string stringConexao = "" +
+        string stringConexao = frmLogin.stringConexao;
+        /*string stringConexao = "" +
                             "Data Source=localhost;" + //local do banco
                             "Initial Catalog=N8_MiniProjeto;" + //nome do banco
                             "User ID=sa;" + //usuario
                             "Password=123456"; //senha
+        */
+
 
         private void TestarConexao()
         {

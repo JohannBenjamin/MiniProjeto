@@ -21,7 +21,9 @@ namespace MiniProjeto
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.Show();
         }
         
         private void usuárioToolStripMenuItem_Click(object sender, EventArgs e)
