@@ -43,6 +43,39 @@ namespace MiniProjeto
             }
         }
 
+        private void CarregarGridCategoria()
+        {
+            string sql = "select " +
+                "id_categoria as 'Código', " +
+                "nome_categoria as 'Nome', " +
+                "descricao_categoria as 'Descrição'," +
+                "status_categoria as 'Status' " +
+                "from Categoria " +
+                "where nome_categoria like '%" + txtPesquisa.Text + "%'";
+
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+            DataSet tabela = new DataSet();
+            conn.Open();
+
+            try
+            {
+                adapter.Fill(tabela);
+                dataCategoria.DataSource = tabela.Tables[0];
+                dataCategoria.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dataCategoria.AutoResizeRow(0, DataGridViewAutoSizeRowMode.AllCellsExceptHeader);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         private bool VerificadorCodigo()
         {
             if (!int.TryParse(txtCodigo.Text, out int codigo))
@@ -93,6 +126,7 @@ namespace MiniProjeto
         private void frmCategoria_Load(object sender, EventArgs e)
         {
             TesteConexao();
+            CarregarGridCategoria();
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
@@ -368,6 +402,17 @@ namespace MiniProjeto
             {
                 MessageBox.Show(mensagemErro);
             }
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            CarregarGridCategoria();
+        }
+
+        private void dataCategoria_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtCodigo.Text = dataCategoria.CurrentRow.Cells["Código"].Value.ToString();
+            btnBuscar.PerformClick();
         }
     }
 }

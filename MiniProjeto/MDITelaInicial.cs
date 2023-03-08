@@ -46,5 +46,10 @@ namespace MiniProjeto
             frmCategoria.MdiParent = this;
             frmCategoria.Show();
         }
+
+        private void MDITelaInicial_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -43,6 +43,46 @@ namespace MiniProjeto
             }
         }
 
+        private void CarregarGridProduto()
+        {
+            string sql = "select " +
+                "P.id_produto as 'Código', " +
+                "P.id_categoria_produto as 'Cód. da Categoria', " +
+                "C.nome_categoria as 'Nome da Categoria', " +
+                "P.nome_produto as 'Nome', " +
+                "P.qtde_produto as 'Qtde', " +
+                "P.peso_produto as 'Peso', " +
+                "P.unidade_produto as 'Un. de Medida', " +
+                "P.valorCusto_produto as 'Valor de Custo', " +
+                "P.valorVenda_produto as 'Valor de Venda', " +
+                "P.status_produto as 'Status' " +
+                "from Produto as P " +
+                "inner join Categoria as C on C.id_categoria = P.id_categoria_produto " +
+                "where P.nome_produto like '%" + txtPesquisa.Text + "%'";
+
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+            DataSet tabela = new DataSet();
+
+
+            try
+            {
+                adapter.Fill(tabela);
+                dataProduto.DataSource = tabela.Tables[0];
+                dataProduto.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dataProduto.AutoResizeRow(0, DataGridViewAutoSizeRowMode.AllCellsExceptHeader);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         private void CarregarCategoria()
         {
             string sql = "select id_categoria, nome_categoria from Categoria";
@@ -81,6 +121,7 @@ namespace MiniProjeto
         {
             TesteConexao();
             CarregarCategoria();
+            CarregarGridProduto();
         }
 
         private bool VerificadorCodigo()
@@ -517,6 +558,17 @@ namespace MiniProjeto
             {
                 MessageBox.Show(mensagemErro);
             }
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            CarregarGridProduto();
+        }
+
+        private void dataProduto_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtCodigo.Text = dataProduto.CurrentRow.Cells["Código"].Value.ToString();
+            btnBuscar.PerformClick();
         }
     }
 }

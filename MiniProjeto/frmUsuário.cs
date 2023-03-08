@@ -37,6 +37,40 @@ namespace MiniProjeto
             }
         }
 
+        private void CarregarGridUsuario()
+        {
+            string sql = "select " +
+                "id_usuario as 'Código', " +
+                "nome_usuario as 'Nome', " +
+                "login_usuario as 'Email', " +
+                "cpf_usuario as 'CPF', " +
+                "status_usuario as 'Status'" +
+                "from Usuario " +
+                "where nome_usuario like '%" + txtPesquisa.Text + "%'";
+
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+            DataSet tabela = new DataSet();
+            conn.Open();
+
+            try
+            {
+                adapter.Fill(tabela);
+                dataUsuario.DataSource = tabela.Tables[0];
+                dataUsuario.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dataUsuario.AutoResizeRow(0, DataGridViewAutoSizeRowMode.AllCellsExceptHeader);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         private bool VerificadorCodigo()
         {
             if (!int.TryParse(txtCodigo.Text, out int codigo))
@@ -111,6 +145,7 @@ namespace MiniProjeto
         private void frmMiniProjeto_Load(object sender, EventArgs e)
         {
             TestarConexao(); //testa a conexao ao abrir o formulário
+            CarregarGridUsuario();
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
@@ -410,6 +445,17 @@ namespace MiniProjeto
             {
                 MessageBox.Show(mensagemErro);
             }
+        }
+
+        private void dataUsuario_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtCodigo.Text = dataUsuario.CurrentRow.Cells["Código"].Value.ToString();
+            btnBuscar.PerformClick();
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            CarregarGridUsuario();
         }
     }
 }

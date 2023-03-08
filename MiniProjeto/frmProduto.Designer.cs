@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboCodigoCategoria = new System.Windows.Forms.ComboBox();
+            this.cboNomeCategoria = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,15 +64,17 @@
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.cboNomeCategoria = new System.Windows.Forms.ComboBox();
-            this.cboCodigoCategoria = new System.Windows.Forms.ComboBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.txtPesquisa = new System.Windows.Forms.TextBox();
+            this.dataProduto = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQtde)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataProduto)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -86,6 +91,34 @@
             this.groupBox1.Size = new System.Drawing.Size(838, 99);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // cboCodigoCategoria
+            // 
+            this.cboCodigoCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCodigoCategoria.Enabled = false;
+            this.cboCodigoCategoria.FormattingEnabled = true;
+            this.cboCodigoCategoria.Location = new System.Drawing.Point(438, 57);
+            this.cboCodigoCategoria.Name = "cboCodigoCategoria";
+            this.cboCodigoCategoria.Size = new System.Drawing.Size(121, 33);
+            this.cboCodigoCategoria.TabIndex = 3;
+            // 
+            // cboNomeCategoria
+            // 
+            this.cboNomeCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboNomeCategoria.FormattingEnabled = true;
+            this.cboNomeCategoria.Location = new System.Drawing.Point(193, 57);
+            this.cboNomeCategoria.Name = "cboNomeCategoria";
+            this.cboNomeCategoria.Size = new System.Drawing.Size(239, 33);
+            this.cboNomeCategoria.TabIndex = 2;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(193, 29);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(176, 25);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Nome da Categoria";
             // 
             // btnBuscar
             // 
@@ -391,33 +424,34 @@
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             // 
-            // label11
+            // groupBox6
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(193, 29);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(176, 25);
-            this.label11.TabIndex = 3;
-            this.label11.Text = "Nome da Categoria";
+            this.groupBox6.Controls.Add(this.dataProduto);
+            this.groupBox6.Controls.Add(this.txtPesquisa);
+            this.groupBox6.Location = new System.Drawing.Point(856, 12);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(347, 377);
+            this.groupBox6.TabIndex = 5;
+            this.groupBox6.TabStop = false;
             // 
-            // cboNomeCategoria
+            // txtPesquisa
             // 
-            this.cboNomeCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboNomeCategoria.FormattingEnabled = true;
-            this.cboNomeCategoria.Location = new System.Drawing.Point(193, 57);
-            this.cboNomeCategoria.Name = "cboNomeCategoria";
-            this.cboNomeCategoria.Size = new System.Drawing.Size(239, 33);
-            this.cboNomeCategoria.TabIndex = 2;
+            this.txtPesquisa.Location = new System.Drawing.Point(6, 32);
+            this.txtPesquisa.Name = "txtPesquisa";
+            this.txtPesquisa.Size = new System.Drawing.Size(335, 33);
+            this.txtPesquisa.TabIndex = 0;
+            this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
             // 
-            // cboCodigoCategoria
+            // dataProduto
             // 
-            this.cboCodigoCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCodigoCategoria.Enabled = false;
-            this.cboCodigoCategoria.FormattingEnabled = true;
-            this.cboCodigoCategoria.Location = new System.Drawing.Point(438, 57);
-            this.cboCodigoCategoria.Name = "cboCodigoCategoria";
-            this.cboCodigoCategoria.Size = new System.Drawing.Size(121, 33);
-            this.cboCodigoCategoria.TabIndex = 3;
+            this.dataProduto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataProduto.Location = new System.Drawing.Point(6, 71);
+            this.dataProduto.Name = "dataProduto";
+            this.dataProduto.RowTemplate.Height = 25;
+            this.dataProduto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataProduto.Size = new System.Drawing.Size(335, 300);
+            this.dataProduto.TabIndex = 1;
+            this.dataProduto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataProduto_CellClick);
             // 
             // frmProduto
             // 
@@ -425,7 +459,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumAquamarine;
             this.CancelButton = this.btnSair;
-            this.ClientSize = new System.Drawing.Size(862, 697);
+            this.ClientSize = new System.Drawing.Size(1215, 697);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox5);
@@ -447,6 +482,9 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataProduto)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -489,5 +527,8 @@
         private ComboBox cboNomeCategoria;
         private Label label11;
         private ComboBox cboCodigoCategoria;
+        private GroupBox groupBox6;
+        private DataGridView dataProduto;
+        private TextBox txtPesquisa;
     }
 }

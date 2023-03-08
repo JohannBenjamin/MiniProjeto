@@ -47,16 +47,21 @@
             this.txtObs = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnCadastrarMelhorado = new System.Windows.Forms.Button();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
-            this.btnCadastrarMelhorado = new System.Windows.Forms.Button();
+            this.dataUsuario = new System.Windows.Forms.DataGridView();
+            this.txtPesquisa = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataUsuario)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -250,6 +255,16 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             // 
+            // btnCadastrarMelhorado
+            // 
+            this.btnCadastrarMelhorado.Location = new System.Drawing.Point(70, 34);
+            this.btnCadastrarMelhorado.Name = "btnCadastrarMelhorado";
+            this.btnCadastrarMelhorado.Size = new System.Drawing.Size(211, 33);
+            this.btnCadastrarMelhorado.TabIndex = 0;
+            this.btnCadastrarMelhorado.Text = "Cadastrar (Melhorado)";
+            this.btnCadastrarMelhorado.UseVisualStyleBackColor = true;
+            this.btnCadastrarMelhorado.Click += new System.EventHandler(this.btnCadastrarMelhorado_Click);
+            // 
             // btnCadastrar
             // 
             this.btnCadastrar.Location = new System.Drawing.Point(287, 34);
@@ -300,15 +315,35 @@
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             // 
-            // btnCadastrarMelhorado
+            // dataUsuario
             // 
-            this.btnCadastrarMelhorado.Location = new System.Drawing.Point(70, 34);
-            this.btnCadastrarMelhorado.Name = "btnCadastrarMelhorado";
-            this.btnCadastrarMelhorado.Size = new System.Drawing.Size(211, 33);
-            this.btnCadastrarMelhorado.TabIndex = 0;
-            this.btnCadastrarMelhorado.Text = "Cadastrar (Melhorado)";
-            this.btnCadastrarMelhorado.UseVisualStyleBackColor = true;
-            this.btnCadastrarMelhorado.Click += new System.EventHandler(this.btnCadastrarMelhorado_Click);
+            this.dataUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataUsuario.Location = new System.Drawing.Point(6, 71);
+            this.dataUsuario.Name = "dataUsuario";
+            this.dataUsuario.ReadOnly = true;
+            this.dataUsuario.RowTemplate.Height = 25;
+            this.dataUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataUsuario.Size = new System.Drawing.Size(368, 218);
+            this.dataUsuario.TabIndex = 1;
+            this.dataUsuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataUsuario_CellClick);
+            // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Location = new System.Drawing.Point(6, 32);
+            this.txtPesquisa.Name = "txtPesquisa";
+            this.txtPesquisa.Size = new System.Drawing.Size(368, 33);
+            this.txtPesquisa.TabIndex = 0;
+            this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.txtPesquisa);
+            this.groupBox5.Controls.Add(this.dataUsuario);
+            this.groupBox5.Location = new System.Drawing.Point(794, 14);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(380, 295);
+            this.groupBox5.TabIndex = 4;
+            this.groupBox5.TabStop = false;
             // 
             // frmUsuário
             // 
@@ -316,7 +351,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.CancelButton = this.btnSair;
-            this.ClientSize = new System.Drawing.Size(800, 591);
+            this.ClientSize = new System.Drawing.Size(1186, 591);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -334,6 +370,9 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataUsuario)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -365,5 +404,8 @@
         private Button btnExcluir;
         private Button btnSair;
         private Button btnCadastrarMelhorado;
+        private DataGridView dataUsuario;
+        private TextBox txtPesquisa;
+        private GroupBox groupBox5;
     }
 }
