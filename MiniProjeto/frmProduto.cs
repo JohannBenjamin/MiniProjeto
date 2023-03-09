@@ -92,19 +92,19 @@ namespace MiniProjeto
             cmd.CommandType = CommandType.Text;
             SqlDataReader leitura;
 
-            DataTable tabela = new DataTable();
+            DataTable tabela = new DataTable(); //instancia de uma nova table
             conn.Open();
 
             try
             {
                 leitura = cmd.ExecuteReader();
-                tabela.Load(leitura);
+                tabela.Load(leitura); //tabela vai carregar a leitura realizada
 
-                cboNomeCategoria.DisplayMember = "nome_categoria";
-                cboNomeCategoria.DataSource = tabela;
+                cboNomeCategoria.DisplayMember = "nome_categoria"; //exibe os registros da coluna "nome"
+                cboNomeCategoria.DataSource = tabela; //informa a tabela que vai buscar os registros
 
-                cboCodigoCategoria.DisplayMember = "id_categoria";
-                cboCodigoCategoria.DataSource = tabela;
+                cboCodigoCategoria.DisplayMember = "id_categoria"; //exibe os registros da coluna "id"
+                cboCodigoCategoria.DataSource = tabela; //informa a tabela que vai buscar os registros
             }
             catch (Exception ex)
             {
@@ -254,7 +254,7 @@ namespace MiniProjeto
                 try
                 {
                     int i = cmd.ExecuteNonQuery();
-                    if(i > 0)
+                    if (i > 0)
                     {
                         MessageBox.Show("Cadastro realizado com sucesso!");
                         btnLimpar.PerformClick();
@@ -298,51 +298,52 @@ namespace MiniProjeto
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (VerificadorCodigo())
+            if (txtCodigo.Text.Trim() == "")
             {
-                string sql = "select * from Produto where id_produto = " + txtCodigo.Text;
-                SqlConnection conn = new SqlConnection(stringConexao);
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                SqlDataReader leitura;
-                conn.Open();
+                frmPesquisaProduto frm = new frmPesquisaProduto();
+                frm.ShowDialog();
+                txtCodigo.Text = frmPesquisaProduto.codigo;
+            }
 
-                try
+            string sql = "select * from Produto where id_produto = " + txtCodigo.Text;
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader leitura;
+            conn.Open();
+
+            try
+            {
+                leitura = cmd.ExecuteReader();
+                if (leitura.Read())
                 {
-                    leitura = cmd.ExecuteReader();
-                    if (leitura.Read())
-                    {
-                        txtCodigo.Text = leitura[0].ToString();
-                        cboCodigoCategoria.Text = leitura[1].ToString();
-                        txtNome.Text = leitura[2].ToString();
-                        numQtde.Value = decimal.Parse(leitura[3].ToString());
-                        txtPeso.Text = leitura[4].ToString();
-                        txtUnidade.Text = leitura[5].ToString();
-                        txtCadastro.Text = leitura[6].ToString();
-                        txtCusto.Text = leitura[7].ToString();
-                        txtVenda.Text = leitura[8].ToString();
-                        cboStatus.Text = leitura[9].ToString();
-                        txtObs.Text = leitura[10].ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erro! Código de produto inexistente.");
-                        btnLimpar.PerformClick();
-                    }
+                    txtCodigo.Text = leitura[0].ToString();
+                    cboCodigoCategoria.Text = leitura[1].ToString();
+                    txtNome.Text = leitura[2].ToString();
+                    numQtde.Value = decimal.Parse(leitura[3].ToString());
+                    txtPeso.Text = leitura[4].ToString();
+                    txtUnidade.Text = leitura[5].ToString();
+                    txtCadastro.Text = leitura[6].ToString();
+                    txtCusto.Text = leitura[7].ToString();
+                    txtVenda.Text = leitura[8].ToString();
+                    cboStatus.Text = leitura[9].ToString();
+                    txtObs.Text = leitura[10].ToString();
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Erro: " + ex.Message);
-                    Application.Exit();
-                }
-                finally
-                {
-                    conn.Close();
+                    MessageBox.Show("Erro! Código de produto inexistente.");
+                    btnLimpar.PerformClick();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show(mensagemErro);
-            }    
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
+            }
+
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)

@@ -54,16 +54,16 @@ namespace MiniProjeto
                 "where nome_categoria like '%" + txtPesquisa.Text + "%'";
 
             SqlConnection conn = new SqlConnection(stringConexao);
-            SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
-            DataSet tabela = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter(sql, conn); //equivalente ao SqlCommand mas o objeto retornado pelo adapter pode ser usado na propriedade Fill()
+            DataSet tabela = new DataSet(); //instância de uma tabela
             conn.Open();
 
             try
             {
-                adapter.Fill(tabela);
-                dataCategoria.DataSource = tabela.Tables[0];
-                dataCategoria.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                dataCategoria.AutoResizeRow(0, DataGridViewAutoSizeRowMode.AllCellsExceptHeader);
+                adapter.Fill(tabela); //o objeto adapter preenche a tabela instanciada anteriormente
+                dataCategoria.DataSource = tabela.Tables[0]; //DataSource é "Oque" eu vou preencher na dataCategoria (no caso a tabela de index[0])
+                dataCategoria.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //redimensiona a coluna para se adequar aos valores das celulas
+                dataCategoria.AutoResizeRow(0, DataGridViewAutoSizeRowMode.AllCellsExceptHeader); //redimensiona as linhas menos a do cabeçalho
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace MiniProjeto
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            if(VerificadorCadastrar())
+            if (VerificadorCadastrar())
             {
                 string sql = "insert into Categoria" +
                     "(" +
@@ -153,7 +153,7 @@ namespace MiniProjeto
 
                 try
                 {
-                    int i = cmd.ExecuteNonQuery();
+                    int i = cmd.ExecuteNonQuery(); //a execução do comando retorna o numero de linhas afetadas no sql
                     if (i > 0)
                     {
                         MessageBox.Show("Cadastro realizado com sucesso!");
@@ -169,7 +169,7 @@ namespace MiniProjeto
                 {
                     conn.Close();
                 }
-                
+
             }
             else
             {
@@ -193,51 +193,51 @@ namespace MiniProjeto
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (VerificadorCodigo())
+            if (txtCodigo.Text.Trim() == "")
             {
-                string sql = "select * from Categoria where id_categoria = " + txtCodigo.Text;
+                frmPesquisaCategoria frm = new frmPesquisaCategoria(); //instancia a frm
+                frm.ShowDialog(); //abre a nova frm mas interrompendo o codigo nesta linha (ao contrario do Show())
+                txtCodigo.Text = frmPesquisaCategoria.codigo;
+            }
 
-                SqlConnection conn = new SqlConnection(stringConexao);
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                SqlDataReader leitura;
-                conn.Open();
+            string sql = "select * from Categoria where id_categoria = " + txtCodigo.Text;
 
-                try
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader leitura; //instancia a um objeto de retorno de leitura
+            conn.Open();
+
+            try
+            {
+                leitura = cmd.ExecuteReader(); //leitura armazena o valor retornado no "SELECT"
+                if (leitura.Read())
                 {
-                    leitura = cmd.ExecuteReader();
-                    if (leitura.Read())
-                    {
-                        txtCodigo.Text = leitura[0].ToString();
-                        txtNome.Text = leitura[1].ToString();
-                        txtDescricao.Text = leitura[2].ToString();
-                        cboStatus.Text = leitura[3].ToString();
-                        txtObs.Text = leitura[4].ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erro! Código de Categoria inexistente.");
-                        btnLimpar.PerformClick();
-                    }
+                    txtCodigo.Text = leitura[0].ToString(); //guarda o valor da primeira coluna da leitura no txt
+                    txtNome.Text = leitura[1].ToString(); //guarda o valor da segunda coluna da leitura no txt
+                    txtDescricao.Text = leitura[2].ToString();
+                    cboStatus.Text = leitura[3].ToString();
+                    txtObs.Text = leitura[4].ToString();
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Erro: " + ex.Message);
-                    Application.Exit();
-                }
-                finally
-                {
-                    conn.Close();
+                    MessageBox.Show("Erro! Código de Categoria inexistente.");
+                    btnLimpar.PerformClick();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show(mensagemErro);
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if(VerificadorCodigo())
+            if (VerificadorCodigo())
             {
                 string sql = "delete from Categoria where id_categoria = " + txtCodigo.Text;
 
@@ -273,7 +273,7 @@ namespace MiniProjeto
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            if(VerificadorCodigo())
+            if (VerificadorCodigo())
             {
                 string sql = "select * from Categoria where id_categoria = " + txtCodigo.Text;
 
@@ -296,7 +296,7 @@ namespace MiniProjeto
                         {
                             txtDescricao.Text = leitura[2].ToString();
                         }
-                        
+
                         if (cboStatus.SelectedIndex == -1)
                         {
                             cboStatus.Text = leitura[3].ToString();
@@ -355,7 +355,7 @@ namespace MiniProjeto
 
         private void btnCadastrarMelhorado_Click(object sender, EventArgs e)
         {
-            if(VerificadorCadastrar())
+            if (VerificadorCadastrar())
             {
                 string sql = "insert into Categoria" +
                     "(" +
@@ -368,7 +368,7 @@ namespace MiniProjeto
                         "'" + txtDescricao.Text + "'," +
                         "'" + cboStatus.Text + "'," +
                         "'" + txtObs.Text + "'" +
-                    ")select SCOPE_IDENTITY()";
+                    ")select SCOPE_IDENTITY()"; //scope_identity retorna o id criado para esse insert
 
                 SqlConnection conn = new SqlConnection(stringConexao);
                 SqlCommand cmd = new SqlCommand(sql, conn);
@@ -411,7 +411,7 @@ namespace MiniProjeto
 
         private void dataCategoria_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtCodigo.Text = dataCategoria.CurrentRow.Cells["Código"].Value.ToString();
+            txtCodigo.Text = dataCategoria.CurrentRow.Cells["Código"].Value.ToString(); //guarda o valor da coluna "Código" da DataGrid no txt
             btnBuscar.PerformClick();
         }
     }

@@ -217,48 +217,48 @@ namespace MiniProjeto
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (VerificadorCodigo())
+            if (txtCodigo.Text.Trim() == "")
             {
-                string sql = "select * from Usuario where id_usuario = " + txtCodigo.Text;
+                frmPesquisaUsuario frm = new frmPesquisaUsuario();
+                frm.ShowDialog();
+                txtCodigo.Text = frmPesquisaUsuario.codigo;
+            }
 
-                SqlConnection conn = new SqlConnection(stringConexao);
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.CommandType = CommandType.Text;
-                SqlDataReader leitura;
-                conn.Open();
+            string sql = "select * from Usuario where id_usuario = " + txtCodigo.Text;
 
-                try
+            SqlConnection conn = new SqlConnection(stringConexao);
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.CommandType = CommandType.Text;
+            SqlDataReader leitura;
+            conn.Open();
+
+            try
+            {
+                leitura = cmd.ExecuteReader();
+                if (leitura.Read())
                 {
-                    leitura = cmd.ExecuteReader();
-                    if (leitura.Read())
-                    {
-                        txtCodigo.Text = leitura[0].ToString();
-                        txtNome.Text = leitura[1].ToString();
-                        txtLogin.Text = leitura[2].ToString();
-                        txtSenha.Text = leitura[3].ToString();
-                        txtCpf.Text = leitura[4].ToString();
-                        cboStatus.Text = leitura[5].ToString();
-                        txtObs.Text = leitura[6].ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erro! Código de usuário inexistente.");
-                        btnLimpar.PerformClick();
-                    }
+                    txtCodigo.Text = leitura[0].ToString();
+                    txtNome.Text = leitura[1].ToString();
+                    txtLogin.Text = leitura[2].ToString();
+                    txtSenha.Text = leitura[3].ToString();
+                    txtCpf.Text = leitura[4].ToString();
+                    cboStatus.Text = leitura[5].ToString();
+                    txtObs.Text = leitura[6].ToString();
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Erro: " + ex.Message);
-                    Application.Exit();
-                }
-                finally
-                {
-                    conn.Close();
+                    MessageBox.Show("Erro! Código de usuário inexistente.");
+                    btnLimpar.PerformClick();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show(mensagemErro);
+                MessageBox.Show("Erro: " + ex.Message);
+                Application.Exit();
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 

@@ -65,8 +65,8 @@
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.txtPesquisa = new System.Windows.Forms.TextBox();
             this.dataProduto = new System.Windows.Forms.DataGridView();
+            this.txtPesquisa = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQtde)).BeginInit();
@@ -434,6 +434,18 @@
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             // 
+            // dataProduto
+            // 
+            this.dataProduto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataProduto.Location = new System.Drawing.Point(6, 71);
+            this.dataProduto.Name = "dataProduto";
+            this.dataProduto.ReadOnly = true;
+            this.dataProduto.RowTemplate.Height = 25;
+            this.dataProduto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataProduto.Size = new System.Drawing.Size(335, 300);
+            this.dataProduto.TabIndex = 1;
+            this.dataProduto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataProduto_CellClick);
+            // 
             // txtPesquisa
             // 
             this.txtPesquisa.Location = new System.Drawing.Point(6, 32);
@@ -441,17 +453,6 @@
             this.txtPesquisa.Size = new System.Drawing.Size(335, 33);
             this.txtPesquisa.TabIndex = 0;
             this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
-            // 
-            // dataProduto
-            // 
-            this.dataProduto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataProduto.Location = new System.Drawing.Point(6, 71);
-            this.dataProduto.Name = "dataProduto";
-            this.dataProduto.RowTemplate.Height = 25;
-            this.dataProduto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataProduto.Size = new System.Drawing.Size(335, 300);
-            this.dataProduto.TabIndex = 1;
-            this.dataProduto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataProduto_CellClick);
             // 
             // frmProduto
             // 

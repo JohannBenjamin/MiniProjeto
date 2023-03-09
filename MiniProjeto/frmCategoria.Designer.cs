@@ -287,6 +287,7 @@
             this.dataCategoria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataCategoria.Location = new System.Drawing.Point(6, 71);
             this.dataCategoria.Name = "dataCategoria";
+            this.dataCategoria.ReadOnly = true;
             this.dataCategoria.RowTemplate.Height = 25;
             this.dataCategoria.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataCategoria.Size = new System.Drawing.Size(356, 257);
